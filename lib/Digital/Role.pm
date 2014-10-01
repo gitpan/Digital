@@ -3,7 +3,7 @@ BEGIN {
   $Digital::Role::AUTHORITY = 'cpan:GETTY';
 }
 # ABSTRACT: Base role for Digital driver (positive integer input)
-$Digital::Role::VERSION = '0.001';
+$Digital::Role::VERSION = '0.002';
 use Moo::Role;
 use Carp qw( croak );
 
@@ -33,7 +33,7 @@ Digital::Role - Base role for Digital driver (positive integer input)
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SUPPORT
 

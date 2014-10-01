@@ -16,7 +16,9 @@ my %WriteMakefileArgs = (
     "ExtUtils::MakeMaker" => 0
   },
   "DISTNAME" => "Digital",
-  "EXE_FILES" => [],
+  "EXE_FILES" => [
+    "bin/digital_input"
+  ],
   "LICENSE" => "perl",
   "NAME" => "Digital",
   "PREREQ_PM" => {
@@ -28,7 +30,7 @@ my %WriteMakefileArgs = (
   "TEST_REQUIRES" => {
     "Test::More" => "0.96"
   },
-  "VERSION" => "0.001",
+  "VERSION" => "0.002",
   "test" => {
     "TESTS" => "t/*.t"
   }

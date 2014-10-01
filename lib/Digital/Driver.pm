@@ -3,11 +3,13 @@ BEGIN {
   $Digital::Driver::AUTHORITY = 'cpan:GETTY';
 }
 # ABSTRACT: Module for new drivers
-$Digital::Driver::VERSION = '0.001';
+$Digital::Driver::VERSION = '0.002';
 use strict;
 use warnings;
 use Package::Stash;
+use Carp qw( croak );
 use MooX ();
+use Import::Into;
 use Digital ();
 
 sub import {
@@ -15,6 +17,7 @@ sub import {
   my $driver_role;
   for (@args) {
     if ($_ =~ m/^-(.+)/) {
+      croak $class.' already has a driver role' if $driver_role;
       $driver_role = 'Digital::Role::'.$1;
     }
   }
@@ -41,6 +44,14 @@ sub install_helper {
       return $coderef->($self,$value) for ($value);
     });
   });
+  $stash->add_symbol('&overload_to', sub {
+    my ( $to, @args ) = @_;
+    overload->import::into($target,
+      '0+', sub { shift->$to },
+      fallback => 1,
+    );
+    return $target->can('to')->($to, @args);
+  });
 }
 
 1;
@@ -55,7 +66,7 @@ Digital::Driver - Module for new drivers
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SUPPORT
 
